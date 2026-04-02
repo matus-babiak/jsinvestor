@@ -47,7 +47,7 @@ const StickyNav = () => {
             href="/dotaznik"
             className="hidden sm:inline-flex items-center font-sans font-semibold text-base bg-primary text-primary-foreground px-6 py-3 rounded-full hover:bg-primary/90 transition-colors"
           >
-            Navrhnúť JS Wealth Map™
+            Získať JS Wealth Map™
           </a>
           <button
             className="lg:hidden p-2 rounded-full text-foreground hover:bg-muted"
@@ -78,7 +78,7 @@ const StickyNav = () => {
               onClick={() => setOpen(false)}
               className="font-sans font-semibold text-sm bg-primary text-primary-foreground py-3 px-4 rounded-xl text-center mt-2 hover:bg-primary/90"
             >
-              Navrhnúť JS Wealth Map™
+              Získať JS Wealth Map™
             </a>
           </div>
         </div>
