@@ -1,17 +1,17 @@
 "use client";
 
-import { useRef, useState, useCallback, useEffect } from "react";
+import { useRef, useState, useCallback, useEffect, type CSSProperties } from "react";
 import StickyNav from "@/components/StickyNav";
 import Footer from "@/components/Footer";
 import RadialOrbitalTimeline from "@/components/ui/radial-orbital-timeline";
 import { benefitTimelineData } from "@/data/benefit-timeline-data";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import brandPattern from "@/assets/js-brand-pattern.svg";
 import logo from "@/assets/js-investor-logo.png";
-import logoWhite from "@/assets/js-investor-logo-biele.png";
 import ivanJasikPhoto from "@/assets/ivan-jasik.jpg";
 import { useScrollAnimation } from "@/hooks/use-scroll-animation";
-import { assetSrc } from "@/lib/utils";
+import { assetSrc, cn } from "@/lib/utils";
 import {
   Compass,
   Building2,
@@ -553,7 +553,7 @@ function BeforeAfterSection() {
     "→ Pri každom poklese trhu a vášho portfólia cítite stres a neistotu. A neviete, či čakať, alebo predať.",
   ];
   const po = [
-    "PO (JS Wealth Map™) Jeden logický systém, kde vaše ETF, nehnuteľnosti a biznis spolupracujú na vašej doživotnej rente.",
+    "Jeden logický systém, kde vaše ETF, nehnuteľnosti a biznis spolupracujú na vašej doživotnej rente.",
     "V modernej aplikácii v reálnom čase vidíte, ako váš čistý majetok rastie.",
     "Platíte férové poplatky 0,49 % ročne do 100 000 €. Nad 100 000 € je exluzívny poplatok 0,35 %.",
     "Pri každom dôležitom finančnom rozhodnutí máte partnera, ktorý vám povie: „Toto urobme, toto je nezmysel.“",
@@ -1231,6 +1231,259 @@ function GroupBenefitAccordionSection() {
   );
 }
 
+function FeeComparisonOldCard() {
+  const negatives = [
+    "Tabuľková stratégia",
+    "Žiadny plán",
+    "Zbytočné dane z výnosov",
+    "Výnosy pod trhovým priemerom",
+    "Predaj namiesto poradenstva",
+  ];
+  return (
+    <div className="flex h-full flex-col rounded-2xl bg-zinc-900 p-6 text-white shadow-lg md:p-8">
+      <span className="mb-4 inline-flex w-fit rounded-md bg-red-600 px-2.5 py-1 font-sans text-xs font-semibold uppercase tracking-wide text-white">
+        STARÝ spôsob
+      </span>
+      <h3 className="font-serif text-xl font-semibold tracking-tight text-white md:text-2xl">Banka &amp; bežný poradca</h3>
+      <p className="mt-5 font-serif text-4xl font-bold tabular-nums md:text-5xl">1 – 2 %</p>
+      <p className="mt-1 font-sans text-sm text-zinc-400">ročný poplatok za správu</p>
+      <div className="my-6 h-px bg-zinc-700" aria-hidden />
+      <ul className="flex flex-1 flex-col gap-3 font-sans text-sm md:text-base">
+        {negatives.map((line) => (
+          <li key={line} className="flex gap-3">
+            <span className="mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-red-600 text-white">
+              <X className="h-3.5 w-3.5" strokeWidth={2.5} aria-hidden />
+            </span>
+            <span>{line}</span>
+          </li>
+        ))}
+      </ul>
+      <div className="mt-6 rounded-xl border border-red-900/60 bg-red-950/50 px-4 py-3.5 font-sans text-base font-medium leading-snug text-zinc-200 md:text-lg">
+        Za 20 rokov investovania prídete o 30 až 40 % majetku kvôli poplatkom.
+      </div>
+    </div>
+  );
+}
+
+function FeeComparisonNewCard() {
+  const positives = [
+    "Individuálna stratégia",
+    "Investičné nehnuteľnosti",
+    "Neverejné fondy (FKI)",
+    "Individualita = lepší výnos",
+    "Rentové a dividendové účty",
+  ];
+  return (
+    <div className="flex h-full flex-col rounded-2xl bg-primary p-6 text-primary-foreground shadow-lg md:p-8">
+      <span className="mb-4 inline-flex w-fit rounded-md bg-white px-2.5 py-1 font-sans text-xs font-semibold uppercase tracking-wide text-foreground">
+        NOVÝ spôsob
+      </span>
+      <h3 className="font-serif text-xl font-semibold tracking-tight md:text-2xl">Komplexná správa majetku</h3>
+      <p className="mt-5 font-serif text-4xl font-bold tabular-nums md:text-5xl">0,35 – 0,49 %</p>
+      <p className="mt-1 font-sans text-sm text-primary-foreground/75">ročný poplatok za správu</p>
+      <div className="mt-4 flex flex-wrap gap-2">
+        <span className="rounded-full border border-white/25 bg-white/10 px-3 py-1 font-sans text-xs font-medium backdrop-blur-sm">
+          0,49 % do 100 000 € a 0,35 % nad 100 000 €
+        </span>
+        <span className="rounded-full border border-white/25 bg-white/10 px-3 py-1 font-sans text-xs font-medium backdrop-blur-sm">
+          1 % poplatok z vkladov
+        </span>
+      </div>
+      <div className="my-6 h-px bg-white/25" aria-hidden />
+      <ul className="flex flex-1 flex-col gap-3 font-sans text-sm md:text-base">
+        {positives.map((line) => (
+          <li key={line} className="flex gap-3">
+            <span className="mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-white text-primary">
+              <Check className="h-3.5 w-3.5" strokeWidth={2.5} aria-hidden />
+            </span>
+            <span>{line}</span>
+          </li>
+        ))}
+      </ul>
+      <div className="mt-6 rounded-xl border border-white/20 bg-white/10 px-4 py-3.5 font-sans text-base font-semibold leading-snug md:text-lg">
+        Úspora na poplatkoch až 100 000 €.
+      </div>
+    </div>
+  );
+}
+
+/** Simulácia dopadu poplatkov — farby podľa brand mockupu */
+const FEE_IMPACT = {
+  bg: "#F2EDE9",
+  competitorBar: "#8B7E6F",
+  jsBar: "#2D5A3F",
+  competitorEnd: 453_000,
+  jsEnd: 570_000,
+} as const;
+
+function FeeFairnessImpactBlock() {
+  const { ref, isVisible } = useScrollAnimation(0.18);
+  const competitorPct = (FEE_IMPACT.competitorEnd / FEE_IMPACT.jsEnd) * 100;
+  const diff = FEE_IMPACT.jsEnd - FEE_IMPACT.competitorEnd;
+
+  const paramItems = [
+    { icon: WalletIcon, label: "mesačná investícia", value: "300 €" },
+    { icon: Clock, label: "investičný horizont", value: "30 rokov" },
+    { icon: TrendingUp, label: "priemerný ročný výnos", value: "10 %" },
+  ] as const;
+
+  return (
+    <div
+      ref={ref}
+      className={cn(
+        "fee-impact-root rounded-[20px] p-5 shadow-[0_8px_32px_-8px_rgba(45,90,63,0.12),0_4px_20px_-6px_rgba(0,0,0,0.06)] ring-1 ring-black/[0.05] transition-shadow duration-500 hover:shadow-[0_14px_44px_-10px_rgba(45,90,63,0.2),0_8px_24px_-8px_rgba(0,0,0,0.08)] md:p-8",
+        isVisible && "is-visible"
+      )}
+      style={
+        {
+          backgroundColor: FEE_IMPACT.bg,
+          "--fee-competitor-pct": `${competitorPct}%`,
+        } as CSSProperties
+      }
+    >
+      <div className="grid gap-3 sm:grid-cols-3">
+        {paramItems.map((item, i) => {
+          const Icon = item.icon;
+          return (
+            <div
+              key={item.label}
+              className={cn(
+                "group relative overflow-hidden rounded-xl border border-black/[0.06] bg-white px-4 py-3 shadow-sm transition-all duration-500 md:px-5 md:py-4",
+                "hover:-translate-y-0.5 hover:border-primary/20 hover:shadow-md",
+                isVisible ? "translate-y-0 opacity-100" : "translate-y-3 opacity-0"
+              )}
+              style={{ transitionDelay: isVisible ? `${i * 80}ms` : "0ms" }}
+            >
+              <div
+                className="pointer-events-none absolute -right-8 -top-8 h-28 w-28 rounded-full bg-primary/[0.07] opacity-0 blur-2xl transition-opacity duration-500 group-hover:opacity-100"
+                aria-hidden
+              />
+              <div className="flex items-start gap-3">
+                <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-primary/10 text-primary shadow-[inset_0_1px_0_rgba(255,255,255,0.7)] transition-transform duration-300 group-hover:scale-105 group-hover:bg-primary/[0.14]">
+                  <Icon className="h-[18px] w-[18px]" strokeWidth={2} aria-hidden />
+                </span>
+                <div className="min-w-0 pt-0.5">
+                  <p className="font-sans text-xs text-muted-foreground md:text-sm">{item.label}:</p>
+                  <p className="mt-0.5 font-sans text-lg font-bold tabular-nums text-foreground md:text-xl">{item.value}</p>
+                </div>
+              </div>
+            </div>
+          );
+        })}
+      </div>
+
+      <p className="sr-only">
+        Pri mesačnej investícii 300 eur počas 30 rokov a priemernom výnose 10 % ročne by ste pri banke s
+        poplatkom 1,5 % ročne nazhromaždili približne 453 000 eur, s JS Investor približne 570 000 eur.
+        Rozdiel v prospech klienta je približne 117 000 eur.
+      </p>
+
+      <div className="mt-8 space-y-7">
+        <div className="flex flex-col gap-3 md:flex-row md:items-stretch md:gap-5">
+          <div className="shrink-0 md:w-[200px] lg:w-[220px]">
+            <p className="font-sans text-sm font-semibold text-foreground md:text-base">Banka &amp; bežný poradca</p>
+            <p className="mt-0.5 font-sans text-xs text-muted-foreground md:text-sm">ročný poplatok = 1,5 %</p>
+          </div>
+          <div className="relative min-h-[52px] flex-1 overflow-hidden rounded-xl bg-gradient-to-b from-white to-white/70 ring-1 ring-black/[0.08] shadow-[inset_0_2px_4px_rgba(255,255,255,0.85)] md:min-h-[58px]">
+            <div
+              className="fee-impact-competitor-fill absolute inset-y-0 left-0 flex items-center justify-center overflow-hidden rounded-xl px-2 shadow-[inset_0_-3px_10px_rgba(0,0,0,0.15)] transition-[width] duration-[1100ms] motion-reduce:transition-none ease-[cubic-bezier(0.22,1,0.36,1)]"
+              style={{
+                width: isVisible ? `${competitorPct}%` : "0%",
+                transitionDelay: isVisible ? "160ms" : "0ms",
+                background: `linear-gradient(155deg, #9a8b7a 0%, ${FEE_IMPACT.competitorBar} 42%, #6e6358 100%)`,
+              }}
+            >
+              {isVisible ? (
+                <div
+                  className="pointer-events-none absolute inset-0 overflow-hidden rounded-xl motion-reduce:hidden"
+                  aria-hidden
+                >
+                  <div className="absolute inset-y-0 w-[45%] bg-gradient-to-r from-transparent via-white/30 to-transparent animate-fee-bar-shimmer" />
+                </div>
+              ) : null}
+              <span
+                className={cn(
+                  "relative z-[1] font-sans text-sm font-bold tabular-nums text-white drop-shadow-[0_1px_2px_rgba(0,0,0,0.35)] transition-opacity duration-500 motion-reduce:opacity-100 motion-reduce:transition-none sm:text-base md:text-lg",
+                  isVisible ? "opacity-100" : "opacity-0"
+                )}
+                style={{ transitionDelay: isVisible ? "680ms" : "0ms" }}
+              >
+                453 000 €
+              </span>
+            </div>
+          </div>
+        </div>
+
+        <div className="flex flex-col gap-3 md:flex-row md:items-stretch md:gap-5">
+          <div className="shrink-0 md:w-[200px] lg:w-[220px]">
+            <p className="font-sans text-sm font-semibold text-foreground md:text-base">
+              JS Investor <span className="font-normal text-muted-foreground">(Wealth Map™)</span>
+            </p>
+            <p className="mt-0.5 font-sans text-xs text-muted-foreground md:text-sm">
+              ročný poplatok: 0,49 % → 0,35 %
+            </p>
+          </div>
+          <div className="relative min-h-[52px] flex-1 overflow-hidden rounded-xl shadow-[0_8px_24px_-6px_rgba(45,90,63,0.45)] ring-1 ring-[#2D5A3F]/30 md:min-h-[58px]">
+            <div
+              className="fee-impact-js-fill absolute inset-0 origin-left rounded-xl transition-transform duration-[1200ms] motion-reduce:transition-none ease-[cubic-bezier(0.22,1,0.36,1)]"
+              style={{
+                transform: isVisible ? "scaleX(1)" : "scaleX(0)",
+                transitionDelay: isVisible ? "360ms" : "0ms",
+                background: `linear-gradient(155deg, #3d7a55 0%, ${FEE_IMPACT.jsBar} 45%, #1e3d2c 100%)`,
+              }}
+            >
+              {isVisible ? (
+                <div className="pointer-events-none absolute inset-0 overflow-hidden rounded-xl motion-reduce:hidden" aria-hidden>
+                  <div
+                    className="absolute inset-y-0 w-[40%] bg-gradient-to-r from-transparent via-white/22 to-transparent animate-fee-bar-shimmer"
+                    style={{ animationDelay: "1.42s" }}
+                  />
+                </div>
+              ) : null}
+            </div>
+            <div className="relative z-10 flex min-h-[52px] w-full items-center justify-end px-4 md:min-h-[58px] md:px-6">
+              <span
+                className={cn(
+                  "font-sans text-base font-bold tabular-nums text-white drop-shadow-[0_1px_2px_rgba(0,0,0,0.35)] transition-opacity duration-500 motion-reduce:opacity-100 motion-reduce:transition-none md:text-xl",
+                  isVisible ? "opacity-100" : "opacity-0"
+                )}
+                style={{ transitionDelay: isVisible ? "880ms" : "0ms" }}
+              >
+                570 000 €
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div
+        className="mt-8 flex flex-col gap-4 rounded-xl bg-gradient-to-br from-[#3a6b4d] via-[#2D5A3F] to-[#1f3d2b] px-5 py-5 text-white shadow-[0_14px_40px_-10px_rgba(45,90,63,0.55)] ring-1 ring-white/15 md:flex-row md:items-center md:justify-between md:px-8 md:py-6"
+      >
+        <div
+          className={cn(
+            "font-sans text-sm leading-snug transition-opacity duration-500 motion-reduce:opacity-100 motion-reduce:transition-none md:text-base",
+            isVisible ? "opacity-100" : "opacity-0"
+          )}
+          style={{ transitionDelay: isVisible ? "820ms" : "0ms" }}
+        >
+          <p className="font-semibold">Rozdiel vo váš prospech</p>
+          <p className="mt-0.5 text-white/90">Len vďaka nižším poplatkom</p>
+        </div>
+        <p
+          className={cn(
+            "font-sans text-3xl font-bold tabular-nums md:text-4xl lg:text-[2.75rem]",
+            !isVisible && "opacity-0",
+            isVisible && "animate-fee-diff-pop motion-reduce:animate-none motion-reduce:opacity-100"
+          )}
+          style={isVisible ? { animationDelay: "0.95s" } : undefined}
+        >
+          + {diff.toLocaleString("sk-SK")} €
+        </p>
+      </div>
+    </div>
+  );
+}
+
 function GuaranteeSection() {
   const { ref, isVisible } = useScrollAnimation();
   return (
@@ -1239,6 +1492,35 @@ function GuaranteeSection() {
         <h2 className={`scroll-animate ${isVisible ? "visible" : ""} text-3xl md:text-4xl lg:text-[48px] font-serif font-bold text-foreground mb-10 text-center`}>
           <em className="text-primary italic">Váš majetok rastie,</em> poplatky klesajú
         </h2>
+
+        <div
+          className={`scroll-animate scroll-animate-delay-1 ${isVisible ? "visible" : ""} mb-10 md:mb-12`}
+          aria-label="Porovnanie starého a nového spôsobu správy majetku"
+        >
+          <div className="md:hidden">
+            <Tabs defaultValue="old" className="w-full max-w-lg mx-auto">
+              <TabsList className="mb-4 grid h-11 w-full grid-cols-2 gap-1 rounded-xl bg-muted p-1">
+                <TabsTrigger value="old" className="rounded-lg font-sans text-sm font-semibold data-[state=active]:bg-zinc-900 data-[state=active]:text-white">
+                  STARÝ spôsob
+                </TabsTrigger>
+                <TabsTrigger value="new" className="rounded-lg font-sans text-sm font-semibold data-[state=active]:bg-primary data-[state=active]:text-primary-foreground">
+                  NOVÝ spôsob
+                </TabsTrigger>
+              </TabsList>
+              <TabsContent value="old" className="mt-0 outline-none">
+                <FeeComparisonOldCard />
+              </TabsContent>
+              <TabsContent value="new" className="mt-0 outline-none">
+                <FeeComparisonNewCard />
+              </TabsContent>
+            </Tabs>
+          </div>
+          <div className="mx-auto hidden max-w-5xl grid-cols-2 gap-6 md:grid md:gap-8">
+            <FeeComparisonOldCard />
+            <FeeComparisonNewCard />
+          </div>
+        </div>
+
         <p className={`scroll-animate scroll-animate-delay-2 ${isVisible ? "visible" : ""} text-xl md:text-2xl text-muted-foreground text-center max-w-[800px] mx-auto mb-10`}>
           Začíname na <strong className="text-foreground">férovej sadzbe 0,49 % ročne</strong> za správu portfólia.
           <span className="block">
@@ -1302,49 +1584,32 @@ function GuaranteeSection() {
           </div>
         </div>
 
-        <div className={`scroll-animate scroll-animate-delay-3 ${isVisible ? "visible" : ""} max-w-[860px] mx-auto mt-20 md:mt-28`}>
-          <h3 className="font-serif text-2xl md:text-3xl font-bold text-foreground text-center mb-6">
-            Čo to znamená{" "}
-            <em className="text-primary italic">
-              v praxi pre vás?
-            </em>
+        <div className={`scroll-animate scroll-animate-delay-3 ${isVisible ? "visible" : ""} mx-auto mt-16 max-w-[860px] md:mt-20`}>
+          <h3 className="mb-6 text-center font-serif text-2xl font-bold text-foreground md:text-3xl">
+            Prečo je to{" "}
+            <em className="text-primary italic">férové?</em>
           </h3>
 
-          <div className="rounded-2xl border border-border/80 bg-muted/30 px-5 py-6 md:px-8 md:py-7">
-            <p className="text-muted-foreground text-base md:text-lg leading-relaxed">
-              Prémiová správa majetku za zlomok ceny tradičných bánk. Nepotrebujete platiť drahé bankové fondy, aby bol váš majetok v bezpečí. Získavate inštitucionálne portfóliá
-              a osobnú stratégiu s transparentnou cenovkou:
-            </p>
-
-            <ul className="mt-5 space-y-2.5 text-foreground text-base md:text-lg">
-              <li className="flex items-start gap-2.5">
-                <span className="mt-2 inline-block w-2.5 h-2.5 rounded-full bg-primary/30" aria-hidden />
-                <span>
-                  <strong>1 % vstupný poplatok</strong>
-                </span>
-              </li>
-              <li className="flex items-start gap-2.5">
-                <span className="mt-2 inline-block w-2.5 h-2.5 rounded-full bg-primary/30" aria-hidden />
-                <span>
-                  <strong>0,49 % ročný poplatok</strong> (pri majetku nad 100 000 € klesá na 0,35 % p.a.)*
-                </span>
-              </li>
-            </ul>
-
-            <p className="mt-4 text-muted-foreground text-xs md:text-sm leading-relaxed">
-              *Je to cena za to, že vaše portfólio je denne pod kontrolou a vy presne viete, čo robiť, keď trhy rastú aj keď klesajú.
-            </p>
-
-            <p className="mt-5 text-muted-foreground text-base md:text-lg leading-relaxed">
-              Inde vám od prvého € vezmú minimálne 1 % ročne. A divte sa, pri 300 € investície na 30 rokov, vám to 1 % zoberie viac ako 100 000 €.
-            </p>
-            <p className="mt-3 text-foreground text-base md:text-lg font-bold">
-              Neplaťte zbytočne poplatky a chráňte svoj čistý výnos.
-            </p>
-          </div>
+          <p className="mx-auto max-w-[800px] text-center text-base leading-relaxed text-muted-foreground md:text-lg">
+            Prémiová správa majetku za zlomok ceny tradičných bánk.{" "}
+            <strong className="font-semibold text-foreground">Nepotrebujete platiť drahé bankové fondy</strong>
+            , aby bol váš majetok v bezpečí. Získavate inštitucionálne portfóliá a osobnú stratégiu s transparentnou
+            cenovkou:
+          </p>
         </div>
 
-        <div className="flex justify-center mt-12">
+        <div className={`scroll-animate scroll-animate-delay-3 ${isVisible ? "visible" : ""} mx-auto mt-20 max-w-[900px] md:mt-28`}>
+          <h3 className="mb-6 text-center font-serif text-2xl font-bold text-foreground md:text-3xl">
+            Čo znamená{" "}
+            <em className="text-primary italic">rozdiel v poplatkoch za 30 rokov?</em>
+          </h3>
+          <FeeFairnessImpactBlock />
+        </div>
+
+        <div className="mt-12 flex flex-col items-center gap-5">
+          <p className="max-w-[640px] text-center font-sans text-lg font-normal leading-snug text-foreground md:text-xl">
+            Neplaťte zbytočne poplatky a chráňte svoj čistý výnos.
+          </p>
           <a
             href="/dotaznik"
             className="btn-primary inline-block bg-primary text-primary-foreground font-sans font-semibold text-base px-8 py-3.5 rounded-full shadow-lg"
@@ -1494,41 +1759,44 @@ function LimitedCapacitySection() {
 
 function FinalCtaSection() {
   const { ref, isVisible } = useScrollAnimation();
+  const ctaBullets = [
+    "Bezplatný a nezáväzný hovor",
+    "Prísny dohľad NBS a 100 % diskrétnosť",
+    "8+ rokov skúseností a 541+ klientov",
+  ];
   return (
     <section id="kontakt" className="section-padding">
       <div ref={ref} className="content-width">
         <div className="scroll-animate-wrapper">
           <div
-            className={`scroll-animate ${isVisible ? "visible" : ""} relative max-w-[960px] mx-auto rounded-3xl bg-primary px-6 py-10 md:px-10 md:py-12 lg:px-14 lg:py-14 text-center text-primary-foreground shadow-[0_18px_60px_rgba(0,0,0,0.16)]`}
+            className={`scroll-animate ${isVisible ? "visible" : ""} relative mx-auto max-w-[1100px] rounded-3xl bg-primary px-6 py-10 text-primary-foreground shadow-[0_18px_60px_rgba(0,0,0,0.16)] md:px-10 md:py-12 lg:px-14 lg:py-14`}
           >
-            <img
-              src={assetSrc(logoWhite)}
-              alt="JS Investor"
-              className="h-10 w-auto mx-auto mb-8"
-            />
-            <h2 className="text-3xl md:text-4xl lg:text-[44px] font-serif font-bold mb-8">
-              Ste jeden krok od toho, aby ste mali svoje financie konečne pod kontrolou
-            </h2>
-            <p className="text-base md:text-xl max-w-[720px] mx-auto mb-10 text-primary-foreground/90">
-              Získajte Wealth Map™. Vašu osobnú finančnú stratégiu postavenú na férových poplatkoch, jasnom prehľade a dlhodobom partnerstve.
-            </p>
-            <a
-              href="/dotaznik"
-              className={`scroll-animate scroll-animate-delay-1 ${isVisible ? "visible" : ""} inline-block rounded-full border border-primary-foreground bg-primary-foreground text-primary font-sans font-semibold text-base px-8 py-3.5 shadow-lg hover:bg-primary-foreground/90 hover:text-primary transition-colors`}
-            >
-              Získať Wealth Map™
-            </a>
-            <div className="mt-8 flex flex-wrap justify-center gap-x-6 gap-y-2 w-full text-primary-foreground/90 text-xs md:text-sm">
-              {[
-                "Bezplatný a nezáväzný hovor",
-                "Prísny dohľad NBS a 100 % diskrétnosť",
-                "8+ rokov skúseností a 541+ klientov",
-              ].map((item) => (
-                <div key={item} className="inline-flex items-center gap-2">
-                  <Check className="w-4 h-4 text-primary-foreground shrink-0" aria-hidden />
-                  <span className="leading-snug font-semibold">{item}</span>
-                </div>
-              ))}
+            <div className="grid items-center gap-10 lg:grid-cols-[minmax(0,3fr)_minmax(0,2fr)] lg:gap-14">
+              <div className="text-center lg:text-left">
+                <h2 className="mb-6 font-serif text-2xl font-bold leading-snug md:text-3xl lg:mb-8 lg:text-4xl">
+                  Ste jeden krok od toho, aby ste mali svoje financie konečne pod kontrolou
+                </h2>
+                <p className="mb-8 text-base text-primary-foreground/90 md:mb-10 md:text-xl lg:max-w-xl">
+                  Získajte Wealth Map™. Vašu osobnú finančnú stratégiu postavenú na férových poplatkoch, jasnom prehľade a dlhodobom partnerstve.
+                </p>
+                <a
+                  href="/dotaznik"
+                  className={`scroll-animate scroll-animate-delay-1 ${isVisible ? "visible" : ""} inline-block rounded-full border border-primary-foreground bg-primary-foreground px-8 py-3.5 font-sans text-base font-semibold text-primary shadow-lg transition-colors hover:bg-primary-foreground/90 hover:text-primary lg:mx-0`}
+                >
+                  Získať Wealth Map™
+                </a>
+              </div>
+              <ul
+                className="flex flex-col gap-4 text-left text-base text-primary-foreground/90 md:gap-5 md:text-lg lg:justify-center lg:text-lg"
+                aria-label="Výhody"
+              >
+                {ctaBullets.map((item) => (
+                  <li key={item} className="flex items-start gap-2.5 md:gap-3">
+                    <Check className="mt-0.5 h-4 w-4 shrink-0 text-primary-foreground md:mt-1" aria-hidden />
+                    <span className="font-normal leading-snug">{item}</span>
+                  </li>
+                ))}
+              </ul>
             </div>
           </div>
         </div>

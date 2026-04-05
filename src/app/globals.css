@@ -211,6 +211,17 @@
 .scroll-animate-delay-3 { transition-delay: 0.45s; }
 .scroll-animate-delay-4 { transition-delay: 0.6s; }
 
+@media (prefers-reduced-motion: reduce) {
+  .fee-impact-root.is-visible .fee-impact-competitor-fill {
+    width: var(--fee-competitor-pct) !important;
+    transition: none !important;
+  }
+  .fee-impact-root.is-visible .fee-impact-js-fill {
+    transform: scaleX(1) !important;
+    transition: none !important;
+  }
+}
+
 /* Pillar cards: stronger scroll-in */
 .scroll-animate-pillar {
   opacity: 0;
