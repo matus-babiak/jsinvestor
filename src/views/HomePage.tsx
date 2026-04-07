@@ -22,7 +22,6 @@ import {
   Wallet as WalletIcon,
   Quote,
   User,
-  Star,
   Check,
   X,
   ShieldCheck,
@@ -44,8 +43,12 @@ const HomePage = () => {
               <img src={assetSrc(logo)} alt="JS Investor" className="hero-animate hero-animate-delay-1 h-[2.2rem] mx-auto mb-6" />
               {/* (odstránené) hero badge nadpisu */}
               <h1 className="hero-animate hero-animate-delay-2 text-4xl md:text-5xl lg:text-[58px] font-serif font-bold text-foreground mb-12">
-                <span className="lg:hidden">Investovanie potrebuje plán, nie náhodu.</span>
-                <span className="hidden lg:block">Investovanie potrebuje plán, nie náhodu.</span>
+                <span className="lg:hidden">
+                  Investovanie potrebuje <em className="text-primary italic">plán, nie náhodu.</em>
+                </span>
+                <span className="hidden lg:block">
+                  Investovanie potrebuje <em className="text-primary italic">plán, nie náhodu.</em>
+                </span>
               </h1>
               <blockquote className="hero-animate hero-animate-delay-3 text-xl font-sans text-muted-foreground mb-10 max-w-[720px] mx-auto">
                 Získajte <strong className="text-foreground">JS Wealth Map™</strong>. Jasný plán, ktorý vám ukáže, kde ste dnes,
@@ -135,6 +138,9 @@ const HomePage = () => {
         {/* Exkluzívny benefit - skupina (akordeón) */}
         <GroupBenefitAccordionSection />
 
+        {/* Garancia spokojnosti */}
+        <GuaranteePromiseSection />
+
         {/* Limitovaná kapacita */}
         <LimitedCapacitySection />
 
@@ -155,12 +161,12 @@ function ChaosSection() {
   const { ref, isVisible } = useScrollAnimation();
   const problems = [
     {
-      icon: Compass,
+      icon: WalletIcon,
       title: "Na účte vám leží 30 000 €. Každý rok z nich zmizne 1 200 €.",
       content: <>Nie preto, že ste niečo urobili zle. Ale preto, že ste neurobili nič.</>,
     },
     {
-      icon: Building2,
+      icon: Percent,
       title: "Bankár vám povedal, že sa o vás postará.",
       content: (
         <>
@@ -180,7 +186,7 @@ function ChaosSection() {
       ),
     },
     {
-      icon: Puzzle,
+      icon: BarChart3,
       title: "Máte ETF, hypotéku, možno aj investičný byt.",
       content: (
         <>
@@ -259,8 +265,8 @@ function WealthMapSection() {
       icon: Building2,
       title: (
         <>
-          <span className="font-bold">Investičné nehnuteľnosti</span>{" "}
-          <span className="font-normal" style={{ fontWeight: 400 }}>
+          <span className="block font-bold">Investičné nehnuteľnosti</span>
+          <span className="block text-base md:text-lg font-normal text-foreground/75 mt-1">
             (ktoré dávajú zmysel pre vás)
           </span>
         </>
@@ -335,29 +341,34 @@ function WealthMapSection() {
           </p>
         </div>
 
-        <div className="text-center max-w-[880px] mx-auto mb-12 md:mb-14">
+        <div className="text-center max-w-[880px] mx-auto mb-14 md:mb-16">
           <h3 className="font-serif text-2xl md:text-3xl font-semibold text-primary-foreground">
             4 piliere{" "}
             <em className="text-primary-foreground">JS Wealth Map™</em>
           </h3>
         </div>
 
-        <ol className="space-y-10 md:space-y-14 text-left max-w-[880px] mx-auto">
+        <ol className="grid md:grid-cols-2 gap-7 md:gap-8 text-left max-w-[1040px] mx-auto">
           {pillars.map((p, i) => (
-            <li key={p.num} className="relative">
+            <li key={p.num} className="relative h-full">
               <div
-                className="group relative rounded-2xl px-4 py-4 md:px-6 md:py-5 lg:px-8 lg:py-6 flex gap-4 md:gap-6 items-start border border-primary-foreground/12 transition-transform duration-300 hover:-translate-y-2 hover:border-primary-foreground/30 bg-primary-foreground/14 shadow-[0_20px_60px_-45px_rgba(0,0,0,0.45)]"
+                className="group relative h-full flex flex-col rounded-2xl px-5 py-5 md:px-7 md:py-7 border border-[#d8cec7] transition-colors duration-200 bg-[#f2ede9]"
               >
-                <div className="relative flex-shrink-0">
-                  <div className="w-12 h-12 md:w-14 md:h-14 rounded-xl icon-pattern-bg-primary flex items-center justify-center shadow-sm">
-                    <p.icon className="w-6 h-6 md:w-7 md:h-7 text-primary-foreground -translate-x-0.5" aria-hidden />
+                <div className="mb-4 flex-1">
+                  <div className="relative flex-shrink-0 mb-3">
+                    <div className="w-12 h-12 md:w-14 md:h-14 rounded-xl bg-[#e8e0d8] flex items-center justify-center">
+                      <p.icon className="w-6 h-6 md:w-7 md:h-7 text-primary -translate-x-0.5" aria-hidden />
+                    </div>
                   </div>
-                </div>
-                <div>
-                  <h3 className="font-serif text-xl md:text-2xl font-semibold text-primary-foreground mb-2 md:mb-3">
+                  <h3 className="font-serif text-3xl leading-[1.08] md:text-4xl font-semibold text-foreground mb-3">
                     {p.title}
                   </h3>
-                  <p className="text-base md:text-lg text-primary-foreground/90">{p.content}</p>
+                  <p className="text-[17px] md:text-[18px] leading-[1.55] text-foreground/85">{p.content}</p>
+                </div>
+                <div className="mt-1 rounded-xl border border-[#ddd4cd] bg-[#f8f4f0] h-36 md:h-40 flex items-center justify-center overflow-hidden">
+                  <div className="w-[86%] h-[74%] rounded-lg border border-[#ddd4cd] bg-[#efe8e2] flex items-center justify-center">
+                    <span className="text-muted-foreground text-sm md:text-base font-sans">Placeholder obrázka</span>
+                  </div>
                 </div>
               </div>
             </li>
@@ -371,135 +382,154 @@ function WealthMapSection() {
             className="absolute -left-24 top-1/2 -translate-y-1/2 w-[420px] h-auto opacity-[0.045] pointer-events-none select-none -z-10"
             aria-hidden="true"
           />
-          <div className="max-w-[980px] mx-auto px-6 md:px-10 py-14 md:py-18">
-            <div className="grid lg:grid-cols-2 gap-10 items-center">
-            {/* Left: PDF + copy */}
-            <div
-              className="py-12 md:py-14"
-            >
-              <h3 className="font-serif text-3xl md:text-4xl font-bold text-primary-foreground text-center md:text-left">
-                JS Wealth Map™ v praxi
-              </h3>
-              <p className="text-lg md:text-xl text-primary-foreground/90 mt-4 md:mt-5 text-center md:text-left">
-                Pozrite si, ako vyzerá reálny dokument, ktorý dostanete po tvorbe mapy.
-                Video vpravo ukazuje proces, PDF ukážka vám dá konkrétny obraz toho, čo dostanete.
-              </p>
+          <div className="max-w-[1080px] mx-auto px-6 md:px-10 py-12 md:py-16">
+            <div className="grid lg:grid-cols-[9fr_11fr] gap-10 md:gap-12 items-start">
+              {/* Left: PDF + copy */}
+              <div className="pt-2">
+                <p className="text-xs md:text-sm uppercase tracking-[0.18em] text-primary-foreground/70 mb-3">Ukážka výstupu</p>
+                <h3 className="font-serif text-3xl md:text-[44px] leading-[1.08] font-bold text-primary-foreground text-left">
+                  JS Wealth Map™ v praxi
+                </h3>
+                <p className="text-lg md:text-[22px] leading-relaxed text-primary-foreground/90 mt-4 md:mt-5 text-left max-w-[640px]">
+                  Reálna ukážka JS Wealth Map™ vo videu aj PDF vám jasne ukáže, čo získate.
+                </p>
 
-              <ul className="mt-6 space-y-2 text-primary-foreground/90 text-base md:text-lg">
-                <li className="flex items-start gap-2">
-                  <span className="mt-1 inline-block w-2.5 h-2.5 rounded-full bg-primary-foreground/20" aria-hidden />
-                  <span>Kde ste dnes (váš majetkový obraz)</span>
-                </li>
-                <li className="flex items-start gap-2">
-                  <span className="mt-1 inline-block w-2.5 h-2.5 rounded-full bg-primary-foreground/20" aria-hidden />
-                  <span>Kam smerujete (cieľ v € a rokoch)</span>
-                </li>
-                <li className="flex items-start gap-2">
-                  <span className="mt-1 inline-block w-2.5 h-2.5 rounded-full bg-primary-foreground/20" aria-hidden />
-                  <span>Ako sa tam dostanete (4 prepojené piliere)</span>
-                </li>
-                <li className="flex items-start gap-2">
-                  <span className="mt-1 inline-block w-2.5 h-2.5 rounded-full bg-primary-foreground/20" aria-hidden />
-                  <span>Kedy začať s čerpaním renty</span>
-                </li>
-              </ul>
-
-              <div className="mt-8 flex justify-center md:justify-start">
-                <a
-                  href="/pdf/js-wealth-map-ukazka.pdf"
-                  className="inline-flex items-center justify-center rounded-full border border-primary-foreground bg-transparent text-primary-foreground font-sans font-semibold text-base px-8 py-3.5 hover:bg-primary-foreground/10 transition-colors"
-                >
-                  Zobraziť PDF ukážku JS Wealth Map™
-                </a>
+                <div className="mt-9 flex justify-start">
+                  <a
+                    href="/pdf/js-wealth-map-ukazka.pdf"
+                    className="inline-flex items-center justify-center rounded-full border border-primary-foreground/70 bg-transparent text-primary-foreground font-sans font-semibold text-base px-8 py-3.5 hover:bg-primary-foreground/10 transition-colors"
+                  >
+                    Zobraziť PDF ukážku
+                  </a>
+                </div>
               </div>
-            </div>
 
-            {/* Right: Video */}
-            <div>
-              <div className="w-full rounded-2xl overflow-hidden aspect-video bg-black shadow-[0_8px_32px_-4px_rgba(0,0,0,0.18),0_24px_64px_-12px_rgba(0,0,0,0.28),0_0_0_1px_rgba(0,0,0,0.1)]">
-                <iframe
-                  src="https://player.vimeo.com/video/1145809910?autoplay=0&title=0&portrait=0&byline=0"
-                  title="Vimeo video"
-                  allow="autoplay; fullscreen; picture-in-picture"
-                  className="block w-full h-full align-top"
-                />
+              {/* Right: Video */}
+              <div className="pt-2 lg:self-center">
+                <div className="w-full rounded-2xl overflow-hidden aspect-video bg-black ring-1 ring-white/20 shadow-[0_24px_56px_-24px_rgba(0,0,0,0.55)]">
+                  <iframe
+                    src="https://player.vimeo.com/video/1145809910?autoplay=0&title=0&portrait=0&byline=0"
+                    title="Vimeo video"
+                    allow="autoplay; fullscreen; picture-in-picture"
+                    className="block w-full h-full align-top"
+                  />
+                </div>
               </div>
-            </div>
             </div>
           </div>
         <div className={`scroll-animate scroll-animate-delay-2 ${isVisible ? "visible" : ""} mt-24 md:mt-28 mb-20 md:mb-24`}>
-          <p className="text-center text-2xl md:text-3xl font-serif font-semibold text-primary-foreground mb-6 md:mb-8">
-            Ako to funguje: Od prvého hovoru po vašu mapu
-          </p>
-          <div className="relative max-w-[900px] mx-auto pl-2 md:pl-0">
-            <div className="absolute left-[18px] md:left-6 top-3 bottom-3 w-px bg-gradient-to-b from-white/20 via-primary/30 to-white/20" aria-hidden />
-            <ol className="space-y-10 md:space-y-12">
+          <div className="relative max-w-[1080px] mx-auto">
+            <div className="pointer-events-none absolute -top-12 left-1/2 -translate-x-1/2 w-[70%] h-24 rounded-full bg-white/10 blur-3xl" aria-hidden />
+            <p className="relative text-center text-2xl md:text-4xl font-serif font-semibold text-primary-foreground mb-8 md:mb-10">
+              Čo sa stane po našom prvom hovore
+            </p>
+
+            <div className="hidden md:block relative mb-8">
+              <div className="grid grid-cols-3 gap-4 md:gap-5 items-center">
+                {[1, 2, 3].map((num) => (
+                  <span
+                    key={num}
+                    className="inline-flex mx-auto rounded-full bg-primary-foreground text-primary border border-primary-foreground/30 w-11 h-11 items-center justify-center text-xl font-bold shadow-[0_6px_14px_-8px_rgba(0,0,0,0.45)]"
+                  >
+                    {num}
+                  </span>
+                ))}
+              </div>
+              <div className="relative mt-3">
+                <div className="h-px bg-gradient-to-r from-primary-foreground/10 via-primary-foreground/40 to-primary-foreground/10" />
+                <div className="grid grid-cols-3 gap-4 md:gap-5 -mt-[5px]">
+                  {[1, 2, 3].map((dot) => (
+                    <span
+                      key={dot}
+                      className="mx-auto w-2.5 h-2.5 rounded-full bg-primary-foreground shadow-[0_0_0_4px_rgba(255,255,255,0.18)]"
+                    />
+                  ))}
+                </div>
+              </div>
+            </div>
+
+            <div className="grid md:grid-cols-3 gap-4 md:gap-5">
               {[
                 {
                   num: 1,
-                  title: "Úvodný hovor (30 - 60 min, online)",
+                  title: "Bezplatný úvodný hovor",
+                  subtitle: "(30 - 60 min, online)",
                   desc: (
                     <>
-                      Povieme si otvorene, aká je vaša súčasná situácia, aké máte ciele a či je pre vás JS Wealth Map™ vhodná. Bez nátlaku do predaja.
-                      Ak zistím, že vám neviem pomôcť alebo to pre vás teraz nie je správne, poviem vám to rovno. Chcem šetriť váš aj svoj čas.
+                      {"✓ "}Zhodnotíme vašu aktuálnu finančnú situáciu
+                      <br />
+                      {"✓ "}Ujasníme si vaše ciele
+                      <br />
+                      {"✓ "}Overíme, či je JS Wealth Map™ pre vás vhodná
+                      <br />
+                      {"✓ "}Žiadny predajný nátlak
+                      <br />
+                      {"✓ "}Šetríme váš aj môj čas
                     </>
                   ),
                 },
                 {
                   num: 2,
-                  title: (
-                    <>
-                      Dostanete finálny výsledok JS Wealth Map™ (do 7–{" "}
-                      <span className="md:block md:whitespace-nowrap whitespace-nowrap">
-                        14 dní)
-                      </span>
-                    </>
-                  ),
+                  title: "Dostanete JS Wealth Map™",
+                  subtitle: "(do 7–14 dní)",
                   desc: (
                     <>
                       Jeden prehľadný dokument, kde vidíte:
                       <br />
-                      {"→ "}Kde sa nachádzate. Aký je váš majetok dnes.
+                      {"✓ "}Kde sa nachádzate (váš majetok dnes)
                       <br />
-                      {"→ "}Kam chcete ísť.
+                      {"✓ "}Kam chcete ísť
                       <br />
-                      {"→ "}Ako sa tam dostanete. Presné kroky bez zbytočných omáčok.
-                      <br />
-                      <br />
-                      Ukážem vám presne, že čo by som robil na vašom mieste ja. Žiadne emócie ale skutočne dáta.
+                      {"✓ "}Ako sa tam dostanete (presné kroky)
                     </>
                   ),
                 },
                 {
                   num: 3,
-                  title: "Uvedenie mapy do praxe a dlhodobá správa",
+                  title: "Uvedenie mapy do praxe",
+                  subtitle: "(Dlhodobá správa)",
                   desc: (
                     <>
-                      Celú stratégiu spoločne preklopíme do reality. Pomôžem vám otvoriť investičné účty (vedené výhradne na vaše meno), nastavíme ETF portfóliá a ak to dáva
-                      zmysel, naplánujeme aj investičnú nehnuteľnosť. Týmto však naša spolupráca len začína – váš majetok priebežne sledujem, rebalansujem a stratégiu upravujem
-                      podľa toho, ako sa mení váš život a situácia na trhoch.
+                      {"✓ "}Stratégiu preklopíme do reality
+                      <br />
+                      {"✓ "}Otvoríme investičné účty na vaše meno
+                      <br />
+                      {"✓ "}Nastavíme ETF portfólio
+                      <br />
+                      {"✓ "}Ak to dáva zmysel, naplánujeme aj investičnú nehnuteľnosť
+                      <br />
+                      {"✓ "}Majetok priebežne sledujem, rebalansujem a prispôsobujem trhu aj vašej situácii
+                      <br />
+                      {"✓ "}Spolupracujeme dlhodobo
                     </>
                   ),
                 },
               ].map((step) => (
-                <li key={step.num} className="relative pl-14 md:pl-20">
-                  <div className="absolute left-0 top-0.5 w-9 h-9 md:w-11 md:h-11 rounded-full bg-primary text-primary-foreground font-serif font-bold text-base md:text-lg flex items-center justify-center shadow-sm">
-                    {step.num}
+                <article
+                  key={step.num}
+                  className={`group relative overflow-hidden rounded-2xl border p-5 md:p-6 transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_18px_36px_-20px_rgba(0,0,0,0.48)] ${
+                    step.num === 2
+                      ? "border-primary-foreground/35 bg-primary-foreground/16 shadow-[0_18px_38px_-22px_rgba(0,0,0,0.5)]"
+                      : "border-primary-foreground/25 bg-primary-foreground/10 shadow-[0_14px_34px_-22px_rgba(0,0,0,0.45)]"
+                  }`}
+                >
+                  <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-primary-foreground/45 to-transparent" aria-hidden />
+                  <div className="md:hidden mb-3 inline-flex rounded-md bg-primary-foreground/15 border border-primary-foreground/20 px-2.5 py-1 text-xs font-semibold text-primary-foreground">
+                    Krok {step.num}
                   </div>
-                  <div>
-                    <h4 className="font-serif text-xl md:text-2xl font-semibold text-primary-foreground mb-1.5">
-                      {step.title}
-                    </h4>
-                    <p className="text-base md:text-lg text-primary-foreground/85 leading-relaxed">
-                      {step.desc}
-                    </p>
-                  </div>
-                </li>
+                  <h4 className="font-serif text-xl md:text-[30px] leading-tight font-semibold text-primary-foreground mb-2">{step.title}</h4>
+                  {step.subtitle ? (
+                    <p className="font-sans text-lg md:text-xl text-primary-foreground/85 mb-3">{step.subtitle}</p>
+                  ) : (
+                    <div className="mb-3 h-5 md:h-6" aria-hidden />
+                  )}
+                  <p className="text-base md:text-[1.15rem] text-primary-foreground/90 leading-relaxed">{step.desc}</p>
+                </article>
               ))}
-            </ol>
+            </div>
           </div>
         </div>
-        <div className="flex justify-center mt-12">
+        <div className="flex justify-center mt-12 mb-8">
           <a
             href="/dotaznik"
             className="btn-primary inline-block bg-transparent border border-primary-foreground text-primary-foreground font-sans font-semibold text-base px-8 py-3.5 rounded-full shadow-lg hover:bg-primary-foreground/10 transition-colors"
@@ -730,7 +760,7 @@ function TestimonialsSection() {
       image: "https://www.jsinvestor.sk/wp-content/uploads/2024/12/download-3.webp",
     },
     {
-      quote: "Ivan je skutočný profesionál. Spolupracujeme 4 roky. Nemusím riešiť financie — viem, že sú v dobrých rukách.",
+      quote: "Ivan je skutočný profesionál. Spolupracujeme 4 roky. Nemusím riešiť financie. Viem, že sú v dobrých rukách.",
       name: "Šimon Latkoczy",
       role: "Slovenský hokejový reprezentant",
       image: "https://www.jsinvestor.sk/wp-content/uploads/2024/12/download-2.webp",
@@ -760,34 +790,37 @@ function TestimonialsSection() {
         <h2 className={`scroll-animate ${isVisible ? "visible" : ""} text-3xl md:text-4xl lg:text-[48px] font-serif font-bold text-foreground mb-16`}>
           Čo hovoria klienti, <em className="text-primary font-bold">ktorí sa už rozhodli.</em>
         </h2>
-        <p className={`scroll-animate scroll-animate-delay-1 ${isVisible ? "visible" : ""} text-xl md:text-2xl text-muted-foreground max-w-[700px] mx-auto mb-14`}>
+        <p className={`scroll-animate scroll-animate-delay-1 ${isVisible ? "visible" : ""} text-xl md:text-2xl text-muted-foreground max-w-[700px] mx-auto mb-12`}>
           Reálne skúsenosti ľudí, ktorí našli svojho <strong className="text-foreground">sprievodcu budovaním majetku a získali pocit absolútneho bezpečia</strong> v každej trhovej situácii.
         </p>
-        <div className="space-y-8 max-w-[820px] mx-auto mb-10">
-          {real.map((t, i) => (
-            <div
-              key={t.name}
-              className={`scroll-animate scroll-animate-delay-${i + 2} ${isVisible ? "visible" : ""} group relative rounded-2xl p-5 md:p-8 text-left flex flex-col sm:flex-row gap-5 sm:gap-8 items-start border border-transparent hover:border-[#ccc7c4] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_12px_28px_-8px_rgba(0,0,0,0.12)]`}
-              style={{ backgroundColor: "#f2ede9" }}
-            >
-              <Quote className="absolute top-5 right-5 w-8 h-8 pointer-events-none" style={{ color: "#ccc7c4" }} aria-hidden />
-              <div className="relative flex-shrink-0 w-20 h-20 sm:w-24 sm:h-24 brand-pattern-mask bg-primary/15 overflow-hidden">
-                {"image" in t && typeof t.image === "string" && (
-                  <img src={t.image} alt="" className="absolute inset-0 w-full h-full object-cover object-[35%_50%] scale-125" />
-                )}
-              </div>
-              <div className="flex-1 min-w-0 pt-0.5">
-                <div className="flex gap-1 mb-4" aria-label="Hodnotenie: 5 z 5 hviezd">
-                  {[...Array(5)].map((_, j) => (
-                    <Star key={j} className="w-5 h-5 sm:w-6 sm:h-6 fill-amber-400/90 text-amber-400/90" aria-hidden />
-                  ))}
+        <div
+          className={`scroll-animate scroll-animate-delay-2 ${isVisible ? "visible" : ""} max-w-[1120px] mx-auto mb-10`}
+        >
+          <div className="grid md:grid-cols-3">
+            {real.map((t, i) => (
+              <article
+                key={t.name}
+                className={`text-left p-6 md:p-8 min-h-[340px] flex flex-col ${i < real.length - 1 ? "md:border-r md:border-border" : ""}`}
+              >
+                <blockquote className="font-sans text-[18px] md:text-[19px] leading-relaxed text-foreground/90 mb-3">
+                  &quot;{t.quote}&quot;
+                </blockquote>
+                <div className="mt-auto">
+                  <div className="flex items-center gap-3 mb-2">
+                    <div className="w-10 h-10 rounded-full overflow-hidden bg-muted">
+                      {"image" in t && typeof t.image === "string" && (
+                        <img src={t.image} alt="" className="w-full h-full object-cover" />
+                      )}
+                    </div>
+                    <div>
+                      <p className="font-sans font-semibold text-lg text-foreground leading-tight">{t.name}</p>
+                      <p className="font-sans text-base text-muted-foreground leading-tight">{t.role}</p>
+                    </div>
+                  </div>
                 </div>
-                <blockquote className="text-base md:text-lg text-foreground/95 leading-relaxed mb-5 font-serif"><span style={{ color: "#ccc7c4" }}>„</span>{t.quote}<span style={{ color: "#ccc7c4" }}>"</span></blockquote>
-                <p className="font-serif font-semibold text-foreground text-base">{t.name}</p>
-                <p className="text-sm text-muted-foreground">{t.role}</p>
-              </div>
-            </div>
-          ))}
+              </article>
+            ))}
+          </div>
         </div>
 
         <div className="flex justify-center mt-2 mb-6">
@@ -1201,6 +1234,33 @@ function GroupBenefitAccordionSection() {
   );
 }
 
+function GuaranteePromiseSection() {
+  const { ref, isVisible } = useScrollAnimation();
+  return (
+    <section id="garancia-spokojnosti" className="section-padding">
+      <div ref={ref} className="content-width">
+        <div className={`scroll-animate ${isVisible ? "visible" : ""} max-w-[880px] mx-auto text-center`}>
+          <h2 className="font-serif text-3xl md:text-4xl lg:text-[46px] font-bold text-foreground mb-6">
+            100% GARANCIA SPOKOJNOSTI
+          </h2>
+          <p className="text-base md:text-lg text-muted-foreground leading-relaxed mb-4">
+            Ak po úvodnom strategickom hovore zistíte, že JS Wealth Map™ nie je pre vás, jednoducho to ukončíme – bez poplatkov, bez nátlaku, bez zbytočných otázok.
+          </p>
+          <p className="text-base md:text-lg text-muted-foreground leading-relaxed mb-8">
+            A ak po dodaní mapy nebudete spokojný, prepracujeme ju bezplatne, kým nebude sedieť na 100%.
+          </p>
+          <a
+            href="/dotaznik"
+            className="btn-primary inline-block bg-primary text-primary-foreground font-sans font-semibold text-base px-8 py-3.5 rounded-full shadow-lg hover:bg-primary/95 transition-colors"
+          >
+            Získať JS Wealth Map™
+          </a>
+        </div>
+      </div>
+    </section>
+  );
+}
+
 function FeeComparisonOldCard() {
   const negatives = [
     "Tabuľková stratégia",
@@ -1503,10 +1563,9 @@ function GuaranteeSection() {
         </p>
 
         {/* Porovnanie poplatkov */}
-        <div className={`scroll-animate scroll-animate-delay-2 ${isVisible ? "visible" : ""} mb-14 w-full`}>
-          <div className="rounded-2xl overflow-hidden border border-border bg-card shadow-[0_4px_24px_-4px_rgba(0,0,0,0.08),0_8px_16px_-8px_rgba(0,0,0,0.04)]">
-            <div className="overflow-x-auto lg:overflow-x-visible">
-            <table className="w-full min-w-[560px] lg:min-w-0 text-left border-collapse table-fixed">
+        <div className={`scroll-animate scroll-animate-delay-2 ${isVisible ? "visible" : ""} mt-8 mb-32 w-full`}>
+          <div className="overflow-x-auto lg:overflow-x-visible">
+            <table className="w-full min-w-[640px] lg:min-w-0 text-left border-collapse table-fixed">
               <colgroup>
                 <col className="w-[22%] lg:w-[22%]" />
                 <col className="w-[25%] lg:w-[25%]" />
@@ -1515,18 +1574,18 @@ function GuaranteeSection() {
                 <col className="w-[17.5%] lg:w-[17.5%]" />
               </colgroup>
               <thead>
-                <tr className="border-b border-border bg-muted/40">
-                  <th className="p-4 md:py-5 md:px-6 font-sans text-sm md:text-base font-bold text-muted-foreground uppercase tracking-widest" aria-label="Typ poplatku"> </th>
-                  <th className="p-4 md:py-5 md:px-6 font-serif font-bold text-primary-foreground text-center text-base md:text-lg bg-primary border-l border-border">JS Wealth Map™</th>
-                  <th className="p-4 md:py-5 md:px-6 font-sans font-semibold text-foreground text-center text-sm md:text-base">Investičné platformy</th>
-                  <th className="p-4 md:py-5 md:px-6 font-sans font-semibold text-foreground text-center text-sm md:text-base">Banky</th>
-                  <th className="p-4 md:py-5 md:px-6 font-sans font-semibold text-foreground text-center text-sm md:text-base">Poradcovia</th>
+                <tr className="border-b border-border/50">
+                  <th className="p-4 md:py-5 md:px-6 font-sans text-sm md:text-base font-semibold text-muted-foreground" aria-label="Typ poplatku"> </th>
+                  <th className="p-4 md:py-5 md:px-6 font-serif font-bold text-foreground text-center text-lg md:text-xl bg-primary/20 rounded-t-2xl">JS Wealth Map™</th>
+                  <th className="p-4 md:py-5 md:px-6 font-sans font-semibold text-foreground text-center text-base md:text-lg">Investičné platformy</th>
+                  <th className="p-4 md:py-5 md:px-6 font-sans font-semibold text-foreground text-center text-base md:text-lg">Banky</th>
+                  <th className="p-4 md:py-5 md:px-6 font-sans font-semibold text-foreground text-center text-base md:text-lg">Poradcovia</th>
                 </tr>
               </thead>
-              <tbody className="font-sans text-sm md:text-base bg-card">
-                <tr className="border-b border-border/60 hover:bg-muted/20 transition-colors">
+              <tbody className="font-sans text-sm md:text-base">
+                <tr className="border-b border-border/40">
                   <td className="p-4 md:py-5 md:px-6 text-muted-foreground"><span className="font-bold">Manažérsky poplatok</span> (ročne)</td>
-                  <td className="p-4 md:py-5 md:px-6 bg-primary text-primary-foreground font-semibold text-center border-l border-primary/80">
+                  <td className="p-4 md:py-5 md:px-6 bg-primary/20 text-foreground font-semibold text-center">
                     <span className="block"><span className="font-normal">do 100 000 € —</span> 0,49 %</span>
                     <span className="block"><span className="font-normal">nad 100 000 € —</span> 0,35 %</span>
                   </td>
@@ -1534,23 +1593,22 @@ function GuaranteeSection() {
                   <td className="p-4 md:py-5 md:px-6 text-muted-foreground text-center">2 – 3 %</td>
                   <td className="p-4 md:py-5 md:px-6 text-muted-foreground text-center">2 – 3 %</td>
                 </tr>
-                <tr className="border-b border-border/60 hover:bg-muted/20 transition-colors">
+                <tr className="border-b border-border/40">
                   <td className="p-4 md:py-5 md:px-6 text-muted-foreground font-bold">Dane</td>
-                  <td className="p-4 md:py-5 md:px-6 bg-primary text-primary-foreground font-semibold text-center border-l border-primary/80">0 %</td>
+                  <td className="p-4 md:py-5 md:px-6 bg-primary/20 text-foreground font-semibold text-center">0 %</td>
                   <td className="p-4 md:py-5 md:px-6 text-muted-foreground text-center">0 %</td>
                   <td className="p-4 md:py-5 md:px-6 text-muted-foreground text-center">19 %</td>
                   <td className="p-4 md:py-5 md:px-6 text-muted-foreground text-center">0 %</td>
                 </tr>
-                <tr className="hover:bg-muted/20 transition-colors">
+                <tr>
                   <td className="p-4 md:py-5 md:px-6 text-muted-foreground font-bold">Vstupný poplatok</td>
-                  <td className="p-4 md:py-5 md:px-6 bg-primary text-primary-foreground font-semibold text-center border-l border-primary/80">max 1 %</td>
+                  <td className="p-4 md:py-5 md:px-6 bg-primary/20 text-foreground font-semibold text-center rounded-b-2xl">max 1 %</td>
                   <td className="p-4 md:py-5 md:px-6 text-muted-foreground text-center">0 – 3 %</td>
                   <td className="p-4 md:py-5 md:px-6 text-muted-foreground text-center">2 – 3 %</td>
                   <td className="p-4 md:py-5 md:px-6 text-muted-foreground text-center">2 – 3 %</td>
                 </tr>
               </tbody>
             </table>
-            </div>
           </div>
         </div>
 
