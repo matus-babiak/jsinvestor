@@ -44,21 +44,12 @@ const HomePage = () => {
               <img src={assetSrc(logo)} alt="JS Investor" className="hero-animate hero-animate-delay-1 h-[2.2rem] mx-auto mb-6" />
               {/* (odstránené) hero badge nadpisu */}
               <h1 className="hero-animate hero-animate-delay-2 text-4xl md:text-5xl lg:text-[58px] font-serif font-bold text-foreground mb-12">
-                <span className="lg:hidden">
-                  Zmeňte investičný chaos na jasnú stratégiu{" "}
-                  <em className="text-primary italic">už do 14 dní.</em>
-                </span>
-                <span className="hidden lg:block">
-                  <span className="block">Zmeňte investičný chaos na jasnú</span>
-                  <span className="block">
-                    stratégiu{" "}
-                    <em className="text-primary italic">už do 14 dní.</em>
-                  </span>
-                </span>
+                <span className="lg:hidden">Investovanie potrebuje plán, nie náhodu.</span>
+                <span className="hidden lg:block">Investovanie potrebuje plán, nie náhodu.</span>
               </h1>
               <blockquote className="hero-animate hero-animate-delay-3 text-xl font-sans text-muted-foreground mb-10 max-w-[720px] mx-auto">
-                Získajte <strong className="text-foreground">JS Wealth Map™</strong>. Jasný a zrozumiteľný plán, ktorý vám ukáže,{" "}
-                <strong className="text-foreground">kde ste, kam idete a ako sa tam dostanete.</strong>
+                Získajte <strong className="text-foreground">JS Wealth Map™</strong>. Jasný plán, ktorý vám ukáže, kde ste dnes,
+                kam smerujete a čo má zmysel urobiť ďalej.
               </blockquote>
               <div className="hero-animate hero-animate-delay-4 flex flex-wrap gap-4 items-center justify-center mb-10">
                 <a
@@ -165,41 +156,36 @@ function ChaosSection() {
   const problems = [
     {
       icon: Compass,
-      title: "Leží vám 10 000 € na účte. Inflácia vám zoberie 600+ € ročne.",
-      content: (
-        <>
-          Alebo máte k dispozícii 30–50 tisíc eur, ktoré čakajú a nič sa s nimi nedeje.{" "}
-          <strong>Každý rok zmizne 3 % kúpnej sily.</strong>
-        </>
-      ),
+      title: "Na účte vám leží 30 000 €. Každý rok z nich zmizne 1 200 €.",
+      content: <>Nie preto, že ste niečo urobili zle. Ale preto, že ste neurobili nič.</>,
     },
     {
       icon: Building2,
-      title: "Platíte banke 2 % ročne. Za 30 rokov vás to stojí tretinu majetku.",
+      title: "Bankár vám povedal, že sa o vás postará.",
       content: (
         <>
-          Privátny bankár vám sľúbil starostlivosť. A realita? Predražené fondy s 2 % poplatkami, ktoré vám{" "}
-          <strong>za 30 rokov zožerú 30 % toho, čo ste mohli mať.</strong>
+          Zabudol dodať, že vám za to účtuje 2% ročne.{" "}
+          <strong>Za 30 rokov je to tretina vášho majetku. V eurách? Desaťtisíce.</strong>
         </>
       ),
     },
     {
       icon: Clock,
-      title: "Po večeroch študujete ETF a akcie. Ráno vás čaká dôležité stretnutie.",
+      title: "Po večeroch googlete ETF a dividendové akcie. Ráno máte meeting.",
       content: (
         <>
-          Nemáte čas hrať sa na investora.{" "}
-          <strong>Potrebujete vedieť, že je o peniaze postarané</strong> aby ste sa mohli venovať rodine a kariére.
+          Cez víkend chcete byť s rodinou.{" "}
+          <strong>Nemáte čas byť investor na plný úväzok.</strong>
         </>
       ),
     },
     {
       icon: Puzzle,
-      title: "Máte ETF, hypotéku, možno už aj byt. Ale neviete, ako to dohromady pracuje.",
+      title: "Máte ETF, hypotéku, možno aj investičný byt.",
       content: (
         <>
-          Vaše fondy rastú, investujete do bytu, ale neviete, kedy má zmysel dokúpiť druhý byt, či radšej navýšiť ETF.{" "}
-          <strong>Alebo neviete kedy môžete začať čerpať rentu.</strong>
+          Ale neviete, či má zmysel dokúpiť druhý byt, navýšiť ETF, alebo čakať.{" "}
+          <strong>Rozhodujete sa podľa pocitu, nie podľa dát.</strong>
         </>
       ),
     },
@@ -214,8 +200,7 @@ function ChaosSection() {
       />
       <div ref={ref} className="content-width relative z-10">
         <h2 className={`scroll-animate ${isVisible ? "visible" : ""} text-3xl md:text-4xl lg:text-[48px] font-serif font-bold text-foreground mb-10 text-center`}>
-          Neviete ako začať? Alebo už investujete ale{" "}
-          <em className="text-primary">nie ste si istý či správne</em>.
+          Poznáte to?
         </h2>
         <div className="grid md:grid-cols-2 gap-8 mb-12">
           {problems.map((p, i) => (
@@ -452,7 +437,7 @@ function WealthMapSection() {
               {[
                 {
                   num: 1,
-                  title: "Úvodný hovor (30 min, online)",
+                  title: "Úvodný hovor (30 - 60 min, online)",
                   desc: (
                     <>
                       Povieme si otvorene, aká je vaša súčasná situácia, aké máte ciele a či je pre vás JS Wealth Map™ vhodná. Bez nátlaku do predaja.
@@ -462,19 +447,9 @@ function WealthMapSection() {
                 },
                 {
                   num: 2,
-                  title: "Analýza situácie (30 – 60 min)",
-                  desc: (
-                    <>
-                      Spoločne si prejdeme aktuálny majetok: účty, fondy, nehnuteľnosti, zmluvy, hypotéky. Prepočítam vaše reálne čísla. Zistíme, kde strácate peniaze a kde máte
-                      rezervy.
-                    </>
-                  ),
-                },
-                {
-                  num: 3,
                   title: (
                     <>
-                      Dostanete finálny výsledok JS Wealth Map™ (do 7 –{" "}
+                      Dostanete finálny výsledok JS Wealth Map™ (do 7–{" "}
                       <span className="md:block md:whitespace-nowrap whitespace-nowrap">
                         14 dní)
                       </span>
@@ -486,28 +461,22 @@ function WealthMapSection() {
                       <br />
                       {"→ "}Kde sa nachádzate. Aký je váš majetok dnes.
                       <br />
-                      {"→ "}Kam idete. Cieľ v € a rokoch.
+                      {"→ "}Kam chcete ísť.
                       <br />
-                      {"→ "}Ako sa tam dostanete. 4 kroky, ktoré idú za sebou.
+                      {"→ "}Ako sa tam dostanete. Presné kroky bez zbytočných omáčok.
+                      <br />
+                      <br />
+                      Ukážem vám presne, že čo by som robil na vašom mieste ja. Žiadne emócie ale skutočne dáta.
                     </>
                   ),
                 },
                 {
-                  num: 4,
-                  title: "Spoločné stretnutie, na ktorom si prejdeme mapu krok po kroku (60 – 90 min)",
-                  desc: (
-                    <>
-                      Ukážem vám, prečo vám odporúčam presne toto. Nie preto, že &quot;tak sa to robí&quot;, ale preto, že tie čísla dávajú zmysel pre vašu situáciu.
-                    </>
-                  ),
-                },
-                {
-                  num: 5,
-                  title: "Uvedenie JS Wealth Map™ do praxe a dlhodobá správa",
+                  num: 3,
+                  title: "Uvedenie mapy do praxe a dlhodobá správa",
                   desc: (
                     <>
                       Celú stratégiu spoločne preklopíme do reality. Pomôžem vám otvoriť investičné účty (vedené výhradne na vaše meno), nastavíme ETF portfóliá a ak to dáva
-                      zmysel, zrealizujeme aj investičnú nehnuteľnosť. Týmto však naša spolupráca len začína – váš majetok priebežne sledujem, rebalansujem a stratégiu upravujem
+                      zmysel, naplánujeme aj investičnú nehnuteľnosť. Týmto však naša spolupráca len začína – váš majetok priebežne sledujem, rebalansujem a stratégiu upravujem
                       podľa toho, ako sa mení váš život a situácia na trhoch.
                     </>
                   ),
@@ -755,19 +724,19 @@ function TestimonialsSection() {
   const { ref, isVisible } = useScrollAnimation();
   const real = [
     {
-      quote: "Ivan je vynikajúci odborník na investovanie. Pomohol mi správne zhodnotiť moje peniaze, keď som začínal pracovať ako lekár vo Švajčiarsku. Jeho vedomosti a rady sú hodnotné a vždy mi rýchlo odpovie na otázky. Vďaka nemu som schopný dlhodobo budovať svoj majetok.",
+      quote: "Začal som pracovať v zahraničí a nevedel som, čo s prvými úsporami. Ivan mi za dva týždne postavil plán, podľa ktorého investujem dodnes.",
       name: "MuDr. Martin Vanečko",
       role: "Doktor pôsobiaci vo Švajčiarsku",
       image: "https://www.jsinvestor.sk/wp-content/uploads/2024/12/download-3.webp",
     },
     {
-      quote: "Ivan je skutočný profesionál. Jeho tvorba je jedinečná a ponúka vedomosti, ktoré sú vzácne na Slovensku. Jeho rýchly a ústretový prístup ma očaril. Spolupracujeme už štyri roky a vždy mi pomáha včas a úplne. Poučil ma nielen o financiách a investovaní, ale aj o osobnom rozvoji. Je úžasné vidieť, ako ľudia, ktorých poznáte, dosahujú úspechy a plnia si svoje sny.",
+      quote: "Ivan je skutočný profesionál. Spolupracujeme 4 roky. Nemusím riešiť financie — viem, že sú v dobrých rukách.",
       name: "Šimon Latkoczy",
       role: "Slovenský hokejový reprezentant",
       image: "https://www.jsinvestor.sk/wp-content/uploads/2024/12/download-2.webp",
     },
     {
-      quote: "Ivan je skvelým spoločníkom pre podnikateľov. Jeho rady o investovaní mi pomáhajú zhodnocovať peniaze zo svojho biznisu. Je skúsený a veľmi znalý. Navyše, našiel som s ním aj spoločnú reč a podobné záujmy.",
+      quote: "Ako podnikateľ potrebujem niekoho, kto rozumie biznisovým peniazom. Ivan presne vie, ako z firemného zisku spraviť osobný majetok.",
       name: "Ladislav Papik",
       role: "Konateľ firmy PAPIK ENTERPRISE s.r.o.",
       image: "https://www.jsinvestor.sk/wp-content/uploads/2024/12/papik.webp",
@@ -1113,16 +1082,17 @@ function AboutSection() {
               Kto stojí za JS Investor
             </p>
             <h2 className={`scroll-animate scroll-animate-delay-1 ${isVisible ? "visible" : ""} text-3xl md:text-4xl lg:text-[48px] font-serif font-bold text-primary-foreground mb-5 text-center md:text-left`}>
-              Nie som bankový poradca.{" "}
-              <em className="text-[hsl(25,100%,98%)] italic">
-                Som váš partner.
-              </em>
+              Nie som bankový ani bežný poradca.
+              <em className="block text-[hsl(25,100%,98%)] italic">Nie som poisťovák.</em>
             </h2>
             <p className={`scroll-animate scroll-animate-delay-2 ${isVisible ? "visible" : ""} text-base md:text-xl text-primary-foreground/90 mb-4 text-left`}>
-              Správa majetku u mňa neznamená &quot;otvoríme účet a uvidíme sa o rok.&quot;
+              Som správca majetku regulovaný NBS, ktorý posledných 8 rokov robí jednu vec: stavia ľuďom finančné stratégie, ktoré fungujú.
+            </p>
+            <p className={`scroll-animate scroll-animate-delay-2 ${isVisible ? "visible" : ""} text-[15px] md:text-lg text-primary-foreground/90 mb-4 text-left`}>
+              531+ klientov. 3M€+ v ETF portfóliách. 5.4M€+ v investičných nehnuteľnostiach. A 110 000+ ľudí, ktorí ma sledujú na Instagrame, pretože hovorím veci, ktoré vám bankár nepovie.
             </p>
             <p className={`scroll-animate scroll-animate-delay-2 ${isVisible ? "visible" : ""} text-[15px] md:text-lg text-primary-foreground/90 mb-5 text-left`}>
-              Znamená to, že keď prepočítavate kúpu bytu, plánujete mimoriadny vklad, alebo sa na trhoch deje panika, môžete mi zavolať. Toto je moja skutočná práca. Byť váš sprievodca na nasledujúcich 20-30 rokov.
+              Keď prepočítavate kúpu bytu, plánujete mimoriadny vklad, alebo sa na trhoch deje panika — môžete mi zavolať. Toto je moja práca. Byť váš sprievodca na nasledujúcich 20–30 rokov.
             </p>
             <div className={`scroll-animate scroll-animate-delay-3 ${isVisible ? "visible" : ""}`}>
               <a
@@ -1625,10 +1595,10 @@ function GuaranteeSection() {
 const FAQ_ITEMS = [
   {
     id: "faq-1",
-    question: "Investujem sám cez investičné aplikácie. Čo mi JS Wealth Map™ prinesie navyše?",
+    question: "Investujem sám cez appku. Prečo by som potreboval vás?",
     answer: (
       <>
-        Aplikácia je len nástroj, nie stratégia. Zatiaľ čo aplikácie slúžia na mechanický nákup, my vám dodáme ucelenú <strong className="text-foreground">Majetkovú mapu</strong>. Náš systém prepája ETF fondy, matematické modely pre investičné nehnuteľnosti, daňovú optimalizáciu a plánovanie doživotnej renty do jedného funkčného celku. Nekupujete si len investičný účet, ale <strong className="text-foreground">ušetrený čas, pocit bezpečia a dlhodobého partnera</strong>, s ktorým môžete kedykoľvek konzultovať dôležité finančné kroky (čo je inak služba v hodnote 250 €/hod).
+        Appka je nástroj, nie stratégia. Nevie vám povedať, kedy zmeniť portfólio, kedy kúpiť byt alebo kedy začať čerpať rentu. My áno.
       </>
     ),
   },
