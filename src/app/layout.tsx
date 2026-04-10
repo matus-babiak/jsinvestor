@@ -1,4 +1,6 @@
 import type { Metadata } from "next";
+import { Toaster } from "sonner";
+
 import "./globals.css";
 
 const siteUrl = "https://www.ivanjasik.sk";
@@ -54,6 +56,7 @@ export default function RootLayout({
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
         {children}
+        <Toaster richColors position="top-center" />
       </body>
     </html>
   );

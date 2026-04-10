@@ -2,13 +2,14 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { toast } from "sonner";
+
+import { logError } from "@/lib/log-error";
 import { cn } from "@/lib/utils";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import { ChevronRight, Layout } from "lucide-react";
-
-const WEBHOOK_URL = process.env.NEXT_PUBLIC_WEBHOOK_URL as string | undefined;
 
 const CTA_LEAD_LABEL = "Naplánovať bezplatné stretnutie";
 
@@ -268,10 +269,13 @@ const Dotaznik = () => {
         }),
       });
       if (!response.ok) {
-        // Ecomail zlyhalo – aj tak zobrazíme výsledok
+        toast.error("Nepodarilo sa odoslať formulár. Skúste znova.");
+        return;
       }
-    } catch {
-      // Bez hlášky
+    } catch (err) {
+      toast.error("Chyba pripojenia. Skontrolujte internet.");
+      logError("dotaznik-ecomail", err);
+      return;
     } finally {
       setIsSubmitting(false);
     }
@@ -279,16 +283,19 @@ const Dotaznik = () => {
     setResultCategory(cat);
   };
 
-  const handleCtaClick = async (cta: { label: string; href: string }) => {
-    if (cta.label !== CTA_LEAD_LABEL || !WEBHOOK_URL) return;
+  const sendLeadWebhook = async () => {
     try {
-      await fetch(WEBHOOK_URL, {
+      const response = await fetch("/api/webhook", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(buildLeadPayload()),
       });
-    } catch {
-      // Bez hlášky
+      if (!response.ok) {
+        toast.error("Nepodarilo sa odoslať údaje. Skúste znova.");
+      }
+    } catch (err) {
+      toast.error("Chyba pripojenia. Skontrolujte internet.");
+      logError("dotaznik-webhook", err);
     }
   };
 
@@ -542,9 +549,9 @@ const Dotaznik = () => {
                       key={i}
                       href={cta.href}
                       onClick={(e) => {
-                        if (cta.label === CTA_LEAD_LABEL && WEBHOOK_URL) {
+                        if (cta.label === CTA_LEAD_LABEL) {
                           e.preventDefault();
-                          handleCtaClick(cta).then(() => router.push(cta.href));
+                          void sendLeadWebhook().finally(() => router.push(cta.href));
                         }
                       }}
                       className={cn(
